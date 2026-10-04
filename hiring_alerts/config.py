@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
@@ -20,6 +20,7 @@ class Config:
     exclude: list[str]
     max_messages: int
     state_path: Path
+    role_keywords: list[str] = field(default_factory=list)
 
 
 def _strings(value: Any, key: str) -> list[str]:
@@ -73,4 +74,5 @@ def load_config(path: Path) -> Config:
                   _strings(data.get("include_keywords", []), "include_keywords"),
                   _strings(data.get("exclude_keywords", []), "exclude_keywords"),
                   _integer(data.get("max_messages_per_run", 15), "max_messages_per_run", 2),
-                  path.resolve().parent / state)
+                  path.resolve().parent / state,
+                  _strings(data.get("role_keywords", []), "role_keywords"))

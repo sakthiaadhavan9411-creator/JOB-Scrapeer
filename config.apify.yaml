@@ -16,3 +16,32 @@ include_keywords: [hiring, recruiting, vacancy, vacancies, opening, "join our te
 exclude_keywords: []
 max_messages_per_run: 15
 state_path: state/alerts.sqlite3
+
+# Require a target role as well as a hiring keyword; remote and on-site both qualify.
+role_keywords:
+  - "operations analyst"
+  - "business operations associate"
+  - "business analyst"
+  - "project coordinator"
+  - "program coordinator"
+  - "PMO analyst"
+  - "product analyst"
+  - "associate product analyst"
+  - "management trainee"
+  - "implementation associate"
+  - "implementation executive"
+  - "customer operations"
+  - "support operations associate"
+  - "supply chain coordinator"
+  - "logistics coordinator"
+  - "office manager"
+  - "admin operations coordinator"
+  - "founder's office"
+  - "founders office"
+  - "founder office"
+  - "founders' office"
+  - "founder’s office"
+  - "strategy and operations associate"
+  - "strategy & operations associate"
+  - "associate project manager"
+  - "executive assistant"

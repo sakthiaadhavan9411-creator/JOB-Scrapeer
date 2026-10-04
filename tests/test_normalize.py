@@ -39,3 +39,11 @@ def test_keywords():
     assert matches(post, [], [])
     assert not matches(post, ["java"], [])
     assert not matches(post, ["hiring"], ["REMOTE"])
+
+
+def test_role_filter_requires_role_and_hiring():
+    roles = ["business analyst", "founder's office", "executive assistant"]
+    assert matches(Post("https://linkedin.com/a", text="Hiring a Business Analyst, on-site"), ["hiring"], [], roles)
+    assert matches(Post("https://linkedin.com/b", text="Hiring remote Founder’s Office associate"), ["hiring"], [], roles)
+    assert not matches(Post("https://linkedin.com/c", text="Hiring Python engineer", author="Business Analyst"), ["hiring"], [], roles)
+    assert not matches(Post("https://linkedin.com/d", text="A day as an executive assistant"), ["hiring"], [], roles)

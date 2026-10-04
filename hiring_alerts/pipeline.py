@@ -61,20 +61,20 @@ def process(config: Config, state: State, source_list: list[Source], sender: Tel
                   error=str(exc) if isinstance(exc, AlertError) else type(exc).__name__)
 
     first_posts = {p.url: p for _, posts, first in healthy if first for p in posts}
-    eligible = [p for p in first_posts.values() if matches(p, config.include, config.exclude) and not state.seen(p.url)]
+    eligible = [p for p in first_posts.values() if matches(p, config.include, config.exclude, config.role_keywords) and not state.seen(p.url)]
     selected = {p.url for p in sorted(eligible, key=_published, reverse=True)[:send_backlog]}
     # Existing initialized sources take precedence over a newly added source's baseline.
     regular = {p.url for _, posts, first in healthy if not first for p in posts
-               if matches(p, config.include, config.exclude)}
+               if matches(p, config.include, config.exclude, config.role_keywords)}
     baseline = set(first_posts) - selected - regular
     for key, posts, first in healthy:
-        staged = posts if first else [p for p in posts if matches(p, config.include, config.exclude)]
+        staged = posts if first else [p for p in posts if matches(p, config.include, config.exclude, config.role_keywords)]
         state.stage(key, staged, baseline if first else set())
         if first:
             event("source_initialized", source=key, baselined=sum(p.url in baseline for p in posts), dry_run=dry_run)
 
     # Reapply current filters, including to durable pending records.
-    pending = [p for p in state.pending() if matches(p, config.include, config.exclude)]
+    pending = [p for p in state.pending() if matches(p, config.include, config.exclude, config.role_keywords)]
     # The cap includes the summary: reserve one slot only when needed.
     count = config.max_messages if len(pending) <= config.max_messages else config.max_messages - 1
     batch = pending[:count]

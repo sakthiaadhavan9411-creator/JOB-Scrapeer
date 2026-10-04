@@ -90,6 +90,7 @@ The adapter starts the task using the [Apify run-task API](https://docs.apify.co
 ## Filtering, state, and delivery
 
 - Pipeline: fetch → common `Post(url, title, author, text, source, published)` → normalize → LinkedIn host check → keyword filter → SQLite dedupe/queue → Telegram.
+- Optional `role_keywords` requires at least one target role in the title/text, in addition to the hiring keywords. It also filters already queued posts; remote and on-site roles both qualify.
 - Keywords match case-insensitive substrings across title, author, and text. Includes use any-match; excludes use none-match. An empty include list accepts all posts. URLs themselves are not keyword searched.
 - Only HTTP(S) `linkedin.com` or its subdomains are accepted. Lookalike domains, credentials in URLs, and unusual ports are rejected. HTTPS, common LinkedIn host variants, trailing slashes, fragments, query ordering, `utm_*`, and common LinkedIn tracking parameters are normalized. Identity-bearing query parameters are retained. This deduplicates normalized URLs, not semantically equivalent posts with unrelated URLs.
 - Each feed and Apify task has a separate initialization marker. Successful empty results initialize it; failed fetches do not. Newly added sources also receive a silent baseline. Initial baselines include all valid LinkedIn URLs, even those not matching today's keywords, to avoid future floods after changing filters.

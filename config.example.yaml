@@ -15,3 +15,6 @@ include_keywords: [hiring, recruiting, vacancy, "job opening"]
 exclude_keywords: []
 max_messages_per_run: 15
 state_path: state/alerts.sqlite3
+
+# Optional second filter: a listed role must also appear in the title/text.
+role_keywords: []

@@ -1,12 +1,21 @@
 {
   "searchQueries": [
+    "(\"operations analyst\" OR \"business operations associate\") AND (hiring OR opening OR recruiting)",
+    "(\"business analyst\") AND (hiring OR opening OR recruiting)",
+    "(\"project coordinator\" OR \"program coordinator\") AND (hiring OR opening OR recruiting)",
+    "(\"PMO analyst\") AND (hiring OR opening OR recruiting)",
+    "(\"product analyst\" OR \"associate product analyst\") AND (hiring OR opening OR recruiting)",
+    "(\"management trainee\") AND (hiring OR opening OR recruiting)",
+    "(\"implementation associate\" OR \"implementation executive\") AND (hiring OR opening OR recruiting)",
+    "(\"customer operations\" OR \"support operations associate\") AND (hiring OR opening OR recruiting)",
+    "(\"supply chain coordinator\" OR \"logistics coordinator\") AND (hiring OR opening OR recruiting)",
+    "(\"office manager\" OR \"admin operations coordinator\") AND (hiring OR opening OR recruiting)",
     "(\"founder's office\" OR \"founders office\" OR \"founder office\") AND (hiring OR opening OR recruiting)",
-    "(\"founder’s office\" OR \"founders' office\") AND (hiring OR opening OR recruiting)",
-    "(\"project associate\" OR \"project coordinator\") AND (hiring OR opening OR recruiting)",
-    "(\"project management associate\" OR \"project manager\") AND (hiring OR opening OR recruiting)",
-    "(\"project executive\" OR \"project assistant\" OR \"PMO analyst\") AND (hiring OR opening OR recruiting)"
+    "(\"founders' office\" OR \"founder’s office\") AND (hiring OR opening OR recruiting)",
+    "(\"strategy and operations associate\" OR \"strategy & operations associate\") AND (hiring OR opening OR recruiting)",
+    "(\"associate project manager\" OR \"executive assistant\") AND (hiring OR opening OR recruiting)"
   ],
-  "maxPosts": 20,
+  "maxPosts": 7,
   "postedLimit": "week",
   "sortBy": "date",
   "scrapeComments": false,
