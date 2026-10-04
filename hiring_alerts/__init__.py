@@ -1,0 +1,1 @@
+"""Public LinkedIn hiring alerts."""

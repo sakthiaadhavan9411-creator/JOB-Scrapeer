@@ -1,0 +1,14 @@
+{
+  "searchQueries": [
+    "(\"founder's office\" OR \"founders office\" OR \"founder office\") AND (hiring OR opening OR recruiting)",
+    "(\"founder’s office\" OR \"founders' office\") AND (hiring OR opening OR recruiting)",
+    "(\"project associate\" OR \"project coordinator\") AND (hiring OR opening OR recruiting)",
+    "(\"project management associate\" OR \"project manager\") AND (hiring OR opening OR recruiting)",
+    "(\"project executive\" OR \"project assistant\" OR \"PMO analyst\") AND (hiring OR opening OR recruiting)"
+  ],
+  "maxPosts": 20,
+  "postedLimit": "week",
+  "sortBy": "date",
+  "scrapeComments": false,
+  "scrapeReactions": false
+}

@@ -1,0 +1,18 @@
+# Enable and configure at least one source before running.
+google_alerts:
+  enabled: true
+  feed_urls:
+    - "https://www.google.com/alerts/feeds/10959493450765435756/5043838230129375759"
+apify:
+  enabled: false
+  timeout_seconds: 300
+  poll_seconds: 5
+  fields:
+    url_field: linkedinUrl
+    author_field: author.name
+    text_field: content
+    date_field: postedAt.date
+include_keywords: [hiring, recruiting, vacancy, vacancies, opening, "join our team", "join us", "looking for", "apply now", "we are seeking"]
+exclude_keywords: []
+max_messages_per_run: 15
+state_path: state/alerts.sqlite3

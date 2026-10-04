@@ -1,0 +1,51 @@
+name: Hiring alerts
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      send_backlog:
+        description: 'Initial backlog to send (only affects new sources)'
+        default: '0'
+        type: choice
+        options: ['0', '5']
+      source_config:
+        description: 'Choose sources (Apify incurs usage charges)'
+        default: config.apify.yaml
+        type: choice
+        options: [config.apify.yaml, config.yaml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hiring-alerts-state
+  cancel-in-progress: false
+
+jobs:
+  alerts:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && (github.event_name == 'workflow_dispatch' || vars.ALERTS_ENABLED == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Restore durable state
+        id: restore
+        run: python scripts/github_state.py restore
+      - name: Run alerts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          APIFY_TASK_ID: ${{ secrets.APIFY_TASK_ID }}
+          SOURCE_CONFIG: ${{ inputs.source_config || vars.ALERTS_CONFIG || 'config.apify.yaml' }}
+          SEND_BACKLOG: ${{ inputs.send_backlog || '0' }}
+        run: python -m hiring_alerts run --config "$SOURCE_CONFIG" --send-backlog "$SEND_BACKLOG"
+      - name: Save durable state even after partial failure
+        if: ${{ always() && steps.restore.outcome == 'success' && hashFiles('state/alerts.sqlite3') != '' }}
+        run: python scripts/github_state.py save

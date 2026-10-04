@@ -1,0 +1,6 @@
+*
+!requirements.txt
+!hiring_alerts/
+!hiring_alerts/**
+!config.yaml
+hiring_alerts/**/__pycache__/

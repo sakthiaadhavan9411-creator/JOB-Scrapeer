@@ -1,0 +1,17 @@
+# Enable and configure at least one source before running.
+google_alerts:
+  enabled: false
+  feed_urls: []
+apify:
+  enabled: false
+  timeout_seconds: 300
+  poll_seconds: 5
+  fields:
+    url_field: url
+    author_field: author
+    text_field: text
+    date_field: publishedAt
+include_keywords: [hiring, recruiting, vacancy, "job opening"]
+exclude_keywords: []
+max_messages_per_run: 15
+state_path: state/alerts.sqlite3
